@@ -12,16 +12,58 @@
     />
 </head> 
 <body>
-
-    <header> 
-        <h1>
-            Weather Search 
-        </h1>
-        <p id="currentDay">
-        </p>
-    </header>
-
-
+        <header> 
+            <h1 class="navbar-brand">
+             Weather Search 
+            </h1>
+        </header>
+<main>
+    <div class="col col-3">
+        <h2>
+            Search For a City
+        </h2>
+        <div class="input-group mb-3">
+          <form id="user-form">
+             <input id="city-name" type="text" class="form-control" placeholder="Search for a city" aria-label="Recipient's username" >
+             <button class="btn btn-outline-secondary" type="button" id="search-btn">Search</button>
+          </form>
+        </div>
+    </div>
+    <div id="current-weather">
+        <h3>
+            Current weather
+        </h3>
+    </div>
+    <div id = "recently-searched">
+    <section class="weather-dis">
+        <div class="flexbox">
+          <section class="today-weather row justify-content-center col-8 col-lg-5 mb-5">
+            <div class="card current-card">
+              <h3 id="city-name"></h3>
+              <h4 id="current-time"></h4>
+              <h4 id="current-day"></h4>
+              <img id="current-icon" class="card-img-top" alt="Weather Icon">
+              <div class="card-body">
+                
+                <p class="card-text" id="current-condition"></p>
+                <p class="card-text" id="current-temp"></p>
+                <p class="card-text" id="current-humidity"></p>
+                <p class="card-text" id="current-wind"></p>
+              </div>
+            </div>
+          </section>
+        </div>
+    
+          <div class="flexbox">
+            <section class="five-day-forecast row justify-content-center">
+              
+      
+            
+           </section>
+          </div>
+      </section>
+      </div>
+</main>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
