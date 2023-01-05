@@ -87,10 +87,15 @@ function getCurrent(latitude, longitude, cityName) {
             }
             for (i=1; i<forecast.daily.length; i++){
               var maxTemp = forecast.daily[i].temp.max;
-               var fullDateTime = dayjs(forecast.daily[i].dt).toDate();
-               var displayDay = dayjs(fullDateTime).format('dddd');
-               var displayDate = dayjs(fullDateTime).format('MMMM D,YYYY');
-               var time = dayjs(fullDateTime).format('h:mmA')
+              //  var forecastDate = dayjs(forecast.daily[i].dt).toDate();
+              //  var displayDay = dayjs(forecastDate).format('dddd');
+              //  var displayDate = dayjs(forecastDate).format('MMMM D,YYYY');
+              var timeStamp = forecast.daily[i].dt;
+              var timeMilli = timeStamp * 1000;
+              var preDate = new Date(timeMilli);
+              var forecastDate = preDate.toLocaleString("en-US", {weekday: "long"})
+
+             //  var time = dayjs(forecastDate).format('h:mmA')
               var dailyWeatherIcon = forecast.daily[i].weather[0].icon;
               var dailyWind = forecast.daily[i].wind_speed;
               var dailyHumidity = forecast.daily[i].humidity;
@@ -100,13 +105,13 @@ function getCurrent(latitude, longitude, cityName) {
                 dailyCard.classList.add('card','m-2', 'daily-card', 'col-10', 'col-md-4', 'col-lg-2');
                 forecastEl.appendChild(dailyCard)
                  var cardDay = document.createElement('h5');
-                 cardDay.textContent = displayDay;
+                 cardDay.textContent = forecastDate;
                  cardDay.classList.add('card-title')
                  dailyCard.appendChild(cardDay);
-                 var cardDate = document.createElement('h5');
-                cardDate.textContent = displayDate;
-                cardDate.classList.add('card-title')
-                dailyCard.appendChild(cardDate);
+                //  var cardDate = document.createElement('h5');
+                // cardDate.textContent = displayDate;
+                // cardDate.classList.add('card-title')
+                // dailyCard.appendChild(cardDate);
                 var dailyIcon = document.createElement('img')
                 dailyIcon.setAttribute('src', 'https://openweathermap.org/img/wn/'+ dailyWeatherIcon + '.png');
                 dailyCard.appendChild(dailyIcon);
