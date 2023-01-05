@@ -9,7 +9,6 @@ var currentTempEl = document.querySelector('#current-temp');
 var currentWindEl = document.querySelector('#current-wind');
 var currentHumidityEl = document.querySelector('#current-humidity');
 var currentIconEl = document.querySelector('#current-icon');
-//var forecast = document.querySelector('.weather-dis');
 var displayCity = document.querySelector('#city-name');
 var currentDay = document.querySelector('#current-day');
 var forecastEl = document.querySelector('.forecast');
@@ -31,7 +30,7 @@ var recentSearch = JSON.parse(localStorage.getItem('recentSearch')) ?? [];;
   for (i=0; i<recentSearch.length; i++) {
     var cityButton = document.createElement('button')
     cityButton.textContent = recentSearch[i].city;
-    cityButton.classList.add('col-xs-7', 'col-sm-6', 'col-lg-3', 'col-xl-2')
+    cityButton.classList.add('recentButton')
     cityButton.addEventListener('click', function(event) {
       getCords(this.textContent);
     });
@@ -62,7 +61,6 @@ function getCurrent(latitude, longitude, cityName) {
             currentWindEl.textContent = 'Wind Speed: ' + currentWind + ' mph';
             currentHumidityEl.textContent = 'Humidity: ' + currentHumidity + '%';
             currentIconEl.setAttribute('src', 'https://openweathermap.org/img/wn/'+ currentIcon + '.png')
-            //forecast.setAttribute("style", "display: inline")
             displayCity.textContent = cityName;
             currentDay.textContent = today;
         });
@@ -87,53 +85,41 @@ function getCurrent(latitude, longitude, cityName) {
             }
             for (i=1; i<forecast.daily.length; i++){
               var maxTemp = forecast.daily[i].temp.max;
-              //  var forecastDate = dayjs(forecast.daily[i].dt).toDate();
-              //  var displayDay = dayjs(forecastDate).format('dddd');
-              //  var displayDate = dayjs(forecastDate).format('MMMM D,YYYY');
               var timeStamp = forecast.daily[i].dt;
               var timeMilli = timeStamp * 1000;
               var preDate = new Date(timeMilli);
               var forecastDate = preDate.toLocaleString("en-US", {weekday: "long"})
-
-             //  var time = dayjs(forecastDate).format('h:mmA')
               var dailyWeatherIcon = forecast.daily[i].weather[0].icon;
               var dailyWind = forecast.daily[i].wind_speed;
               var dailyHumidity = forecast.daily[i].humidity;
 
-            //  if (time === '3:00PM') {
-                var dailyCard = document.createElement('div');
-                dailyCard.classList.add('card','m-2', 'daily-card', 'col-10', 'col-md-4', 'col-lg-2');
-                forecastEl.appendChild(dailyCard)
-                 var cardDay = document.createElement('h5');
-                 cardDay.textContent = forecastDate;
-                 cardDay.classList.add('card-title')
-                 dailyCard.appendChild(cardDay);
-                //  var cardDate = document.createElement('h5');
-                // cardDate.textContent = displayDate;
-                // cardDate.classList.add('card-title')
-                // dailyCard.appendChild(cardDate);
-                var dailyIcon = document.createElement('img')
-                dailyIcon.setAttribute('src', 'https://openweathermap.org/img/wn/'+ dailyWeatherIcon + '.png');
-                dailyCard.appendChild(dailyIcon);
-                // var dailyCondition = document.createElement('p')
-                // dailyCondition.classList.add('cardText')
-                // dailyCondition.textContent = weatherCondition;
-                // dailyCard.appendChild(dailyCondition)
-                var dailyHigh = document.createElement('p')
-                dailyHigh.classList.add('cardText')
-                dailyHigh.textContent = parseFloat(maxTemp) + '°F';
-                dailyCard.appendChild(dailyHigh)
-                var dailyHumidityEl = document.createElement('p')
-                dailyHumidityEl.classList.add('cardText')
-                dailyHumidityEl.textContent = 'Humidity: ' + dailyHumidity + '%';
-                dailyCard.appendChild(dailyHumidityEl)
-                var dailyWindEl = document.createElement('p')
-                dailyWindEl.classList.add('cardText')
-                dailyWindEl.textContent = 'Wind Speed: ' + dailyWind + ' mph';
-                dailyCard.appendChild(dailyWindEl)
-
-                console.log(dayjs(1672851600).format('dddd'));
-         //      }
+            
+              var dailyCard = document.createElement('div');
+              dailyCard.classList.add('card','m-2', 'daily-card', 'col-10', 'col-md-4', 'col-lg-2');
+              forecastEl.appendChild(dailyCard)
+              var cardDay = document.createElement('h5');
+              cardDay.textContent = forecastDate;
+              cardDay.classList.add('card-title')
+              dailyCard.appendChild(cardDay);
+              
+              var dailyIcon = document.createElement('img')
+              dailyIcon.setAttribute('src', 'https://openweathermap.org/img/wn/'+ dailyWeatherIcon + '.png');
+              dailyCard.appendChild(dailyIcon);
+              var dailyHigh = document.createElement('p')
+              dailyHigh.classList.add('cardText')
+              dailyHigh.textContent = parseFloat(maxTemp) + '°F';
+              dailyCard.appendChild(dailyHigh)
+              var dailyHumidityEl = document.createElement('p')
+              dailyHumidityEl.classList.add('cardText')
+              dailyHumidityEl.textContent = 'Humidity: ' + dailyHumidity + '%';
+              dailyCard.appendChild(dailyHumidityEl)
+              var dailyWindEl = document.createElement('p')
+              dailyWindEl.classList.add('cardText')
+              dailyWindEl.textContent = 'Wind Speed: ' + dailyWind + ' mph';
+              dailyCard.appendChild(dailyWindEl)
+              
+              console.log(dayjs(1672851600).format('dddd'));
+        
             };
           });
       };
